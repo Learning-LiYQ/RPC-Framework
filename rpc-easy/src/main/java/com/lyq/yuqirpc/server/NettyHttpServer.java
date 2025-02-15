@@ -16,8 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * web服务器
+ * @author lyq
  */
-@Slf4j
 public class NettyHttpServer implements HttpServer {
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
@@ -45,7 +45,7 @@ public class NettyHttpServer implements HttpServer {
                     });
 
             channel = bootstrap.bind(port).sync().channel();
-            System.out.println("Server started on port: " + port);
+            System.out.println("服务启动成功，Server started on port: " + port);
             channel.closeFuture().sync();
         } catch (Exception e) {
             shutdown();

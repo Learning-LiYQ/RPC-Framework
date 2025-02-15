@@ -2,11 +2,12 @@ package com.lyq.example.consumer;
 
 import com.lyq.common.model.User;
 import com.lyq.common.service.UserService;
+import com.lyq.yuqirpc.proxy.ServiceProxyFactory;
 
 public class EasyConsumerExample {
     public static void main(String[] args) {
-        // todo: 通过RPC框架获取UserService的实现类
-        UserService userService = null;
+        // 通过RPC框架获取UserService的实现类
+        UserService userService = ServiceProxyFactory.getProxy(UserService.class);
         User user = new User();
         user.setName("tony");
         // 调用
