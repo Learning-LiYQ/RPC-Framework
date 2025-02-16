@@ -1,10 +1,12 @@
 package com.lyq.yuqirpc.server;
 
+import com.lyq.yuqirpc.RpcApplication;
 import com.lyq.yuqirpc.model.RpcRequest;
 import com.lyq.yuqirpc.model.RpcResponse;
 import com.lyq.yuqirpc.registry.LocalRegistry;
 import com.lyq.yuqirpc.serializer.JdkSerializer;
 import com.lyq.yuqirpc.serializer.Serializer;
+import com.lyq.yuqirpc.serializer.SerializerFactory;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
@@ -29,8 +31,8 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
     private final Serializer serializer;
 
     public HttpServerHandler() {
-        // todo:暂时使用JDK序列化器
-        this.serializer = new JdkSerializer();
+        // 根据配置获取序列化器
+        this.serializer = SerializerFactory.getSerializer(RpcApplication.getRpcConfig().getSerializer());
     }
 
     @Override
@@ -61,6 +63,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
             }
 
             // 获取要调用的服务实现类，通过反射调用
+            log.info("Netty服务器收到请求，rpcRequest:{}", rpcRequest);
             Class<?> implClass = LocalRegistry.get(rpcRequest.getServiceName());
             Method method = implClass.getMethod(rpcRequest.getMethodName(), rpcRequest.getParameterTypes());
             Object result = method.invoke(implClass.newInstance(), rpcRequest.getArgs());

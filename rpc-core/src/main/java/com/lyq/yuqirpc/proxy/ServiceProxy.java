@@ -2,10 +2,12 @@ package com.lyq.yuqirpc.proxy;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
+import com.lyq.yuqirpc.RpcApplication;
 import com.lyq.yuqirpc.model.RpcRequest;
 import com.lyq.yuqirpc.model.RpcResponse;
 import com.lyq.yuqirpc.serializer.JdkSerializer;
 import com.lyq.yuqirpc.serializer.Serializer;
+import com.lyq.yuqirpc.serializer.SerializerFactory;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
@@ -20,8 +22,8 @@ public class ServiceProxy implements InvocationHandler {
     private final Serializer serializer;
 
     public ServiceProxy() {
-        // todo:暂时使用JDK序列化器
-        this.serializer = new JdkSerializer();
+        // 根据配置获取序列化器
+        this.serializer = SerializerFactory.getSerializer(RpcApplication.getRpcConfig().getSerializer());
     }
 
     /**

@@ -28,4 +28,13 @@ public class RpcConfig {
      */
     private String serverPort = "8080";
 
+    /**
+     * 是否模拟调用
+     */
+    private boolean mock = false;
+
+    /**
+     * 序列化器
+     */
+    private String serializer = "jdk";
 }

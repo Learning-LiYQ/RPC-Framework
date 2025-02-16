@@ -20,7 +20,7 @@ public class ServiceProxy implements InvocationHandler {
     private final Serializer serializer;
 
     public ServiceProxy() {
-        // todo:暂时使用JDK序列化器
+        // 暂时使用JDK序列化器
         this.serializer = new JdkSerializer();
     }
 

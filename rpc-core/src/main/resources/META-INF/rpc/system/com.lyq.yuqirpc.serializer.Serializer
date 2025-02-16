@@ -1,0 +1,3 @@
+jdk=com.lyq.yuqirpc.serializer.JdkSerializer
+json=com.lyq.yuqirpc.serializer.JsonSerializer
+hessian=com.lyq.yuqirpc.serializer.HessianSerializer

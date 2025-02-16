@@ -29,7 +29,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
     private final Serializer serializer;
 
     public HttpServerHandler() {
-        // todo:暂时使用JDK序列化器
+        // 使用JDK序列化器
         this.serializer = new JdkSerializer();
     }
 
