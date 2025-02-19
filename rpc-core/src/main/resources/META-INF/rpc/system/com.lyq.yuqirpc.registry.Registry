@@ -1,0 +1,1 @@
+nacos=com.lyq.yuqirpc.registry.nacos.NacosRegistry

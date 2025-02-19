@@ -1,7 +1,10 @@
 package com.lyq.yuqirpc;
 
+import com.lyq.yuqirpc.config.RegistryConfig;
 import com.lyq.yuqirpc.config.RpcConfig;
 import com.lyq.yuqirpc.constant.RpcConstant;
+import com.lyq.yuqirpc.registry.Registry;
+import com.lyq.yuqirpc.registry.RegistryFactory;
 import com.lyq.yuqirpc.utils.ConfigUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +24,11 @@ public class RpcApplication {
     public static void init(RpcConfig newRpcConfig) {
         rpcConfig = newRpcConfig;
         log.info("Rpc init, rpcConfig:{}", newRpcConfig.toString());
+        // 注册中心初始化
+        RegistryConfig registryCfg = rpcConfig.getRegistryCfg();
+        Registry registry = RegistryFactory.getInstance(registryCfg.getRegistry());
+        registry.init(registryCfg);
+        log.info("registry init, registryCfg:{}", registryCfg);
     }
 
     /**
